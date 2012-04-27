@@ -1,6 +1,6 @@
 <?php
 /**
- * sacado de libreria EtuDev
+ * get()
  */
 class EtuDev_Cookie_Helper {
 
@@ -10,7 +10,13 @@ class EtuDev_Cookie_Helper {
 		$this->prefix = $prefix ? : '';
 	}
 
-	public function get($name) {
+	/**
+	 * get the cookie that has been base64 serialized and with a salt (prefix)
+	 *
+	 * @param $name
+	 * @return bool|mixed|null
+	 */
+	public function getSafe($name) {
 		$key   = $this->prefix . $name;
 		$value = array_key_exists($key, $_COOKIE) ? unserialize(base64_decode($_COOKIE[$key])) : null;
 		if ($value == null) {
@@ -19,13 +25,16 @@ class EtuDev_Cookie_Helper {
 		return $value;
 	}
 
-	public function set($name, $value, $expiration = 0, $domain = '') {
+	/**
+	 * @param $name
+	 * @param $value
+	 * @param int $expiration
+	 * @param string $domain
+	 * @return bool
+	 */
+	public function setSafe($name, $value, $expiration = 0, $domain = '') {
 		$enc = base64_encode(serialize($value));
-		return self::setCookieLive($this->prefix . $name, $enc, $expiration, '/', $domain);
-	}
-
-	public function expireToday() {
-		return strtotime(date('Y-m-d 00:00:00', strtotime('+1 day')));
+		return static::setCookieLive($this->prefix . $name, $enc, $expiration, '/', $domain);
 	}
 
 	/**
