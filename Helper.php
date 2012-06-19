@@ -7,13 +7,14 @@ class EtuDev_Cookie_Helper {
 	protected $prefix = '';
 
 	public function __construct($prefix = 'app_') {
-		$this->prefix = $prefix ? : '';
+		$this->prefix = $prefix ?: '';
 	}
 
 	/**
 	 * get the cookie that has been base64 serialized and with a salt (prefix)
 	 *
 	 * @param $name
+	 *
 	 * @return bool|mixed|null
 	 */
 	public function getSafe($name) {
@@ -26,10 +27,11 @@ class EtuDev_Cookie_Helper {
 	}
 
 	/**
-	 * @param $name
-	 * @param $value
-	 * @param int $expiration
+	 * @param        $name
+	 * @param        $value
+	 * @param int    $expiration
 	 * @param string $domain
+	 *
 	 * @return bool
 	 */
 	public function setSafe($name, $value, $expiration = 0, $domain = '') {
