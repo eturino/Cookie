@@ -7,7 +7,7 @@ class EtuDev_Cookie_Helper {
 	protected $prefix = '';
 
 	public function __construct($prefix = 'app_') {
-		$this->prefix = $prefix ?: '';
+		$this->prefix = $prefix ? : '';
 	}
 
 	/**
